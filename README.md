@@ -1,4 +1,5 @@
 ## webgrep: the simplest way to surf the web
+webgrep is the fastest way to read the web right from your terminal, with all the features of regular grep.
 ### how to use:
 download it with cargo, then use it like any other unix command:
 #### flags:
