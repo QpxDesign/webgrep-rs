@@ -33,6 +33,7 @@ pub fn prettyprint(text: String, re: Regex) {
         }
         letter_index += 1;
     }
+    println!("\n");
 }
 
 fn trim_whitespace(text: String) -> String {

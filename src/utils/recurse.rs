@@ -62,7 +62,7 @@ pub async fn recurse(base_url: String, depth: i8) -> HashMap<String, Vec<String>
                             + &parsed_url.host().unwrap().to_string()
                             + &href;
                     }
-                    if !CACHE.lock().unwrap().contains_key(&href) {
+                    if !CACHE.lock().unwrap().contains_key(&href) && !Url::parse(&href).is_err() {
                         let s_resp = reqwest::get(href.clone())
                             .await
                             .unwrap()
