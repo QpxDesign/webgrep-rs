@@ -1,13 +1,23 @@
 [package]
-name = "webgrep-rs"
+name = "webgrep"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
+license = "MIT"
+description = "grep the web: a search-focused ultra-simple way to read the web without having to leave the terminal"
+readme = "README.md"
+repository = "https://github.com/qpxdesign/webgrep-rs/"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 clap = { version = "4.4.18", features = ["derive"] }
+lazy_static = "1.5.0"
 regex = "1.10.5"
-reqwest = { version = "0.11", features = ["blocking"] }
+reqwest = { version = "0.11"}
 scraper = "0.19.0"
 url = "2.5.2"
+tokio = { version = "1", features = ["full"] }
+tokio-macros = "2.3.0"
+async-recursion = "1.1.1"
+futures = "0.3.30"
+colored = "2.1.0"

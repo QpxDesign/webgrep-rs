@@ -1,12 +1,18 @@
 ## webgrep: the simplest way to surf the web
 ### how to use:
-webgrep is currently still in early development, but once we get to a 'finished-enough' point we will publish it on crates.io. until then, you can build it yourself by cloning the repo.
+download it with cargo, then use it like any other unix command:
 #### flags:
 - `-u/--url` base url to search from
-- `-s/--search` search query (REGEX supported)
-- `-r/--recursive` iterate through/search all links on the base url for a set depth (see below)
-- `-d/--depth` integer, defaults to 1, how many times to recurse
-- `-i/--interval` how long to wait before making requests to webpages (defaults to 1 second)
+- `-s/--search` OPTIONAL, search query (REGEX supported)
+- `-r/--recursive` OPTIONAL, iterate through/search all links on the base url for a set depth (see below), provide a value for depth (how many branches of the link tree to explore)
+- `-p/--pathcontains` OPTIONAL, plaintext string that must be in a path for it to be explored (useful to prevent going to going wandering)
+- `-o/--samehost` OPTIONAL, only explore webpages on the same host (ie same domain)
 
 ### bugs/contributing
 please report any bugs you encounter on the 'issues' page. we welcome any contributions, just make a pr!
+
+### coming soon!
+- support for adding a delay in between requests
+- tests
+- more advanced tree creation method
+- more!

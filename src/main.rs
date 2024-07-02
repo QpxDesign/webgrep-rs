@@ -1,37 +1,43 @@
 use crate::structs::Args::ArgParser;
 use clap::Parser;
 use regex::Regex;
+use reqwest::Client;
 use scraper::{Html, Selector};
+use std::collections::HashMap;
 
 #[path = "./structs/mod.rs"]
 mod structs;
 #[path = "./utils/mod.rs"]
 mod utils;
 
-fn main() {
+#[tokio::main]
+async fn main() {
+    let client = Client::new();
     let args: crate::structs::Args::ArgParser = ArgParser::parse();
-    let resp = reqwest::blocking::get(&args.url).unwrap().text().unwrap();
-    let parsed_html = Html::parse_document(&resp);
-    let text_selector = Selector::parse("*").unwrap();
+    let resp = client
+        .get(&args.url)
+        .send()
+        .await
+        .unwrap()
+        .text()
+        .await
+        .unwrap();
 
-    let mut text_elements: Vec<structs::Element::Element> = Vec::new();
-    if args.recursive.is_some() && args.recursive.unwrap() {
-        text_elements = utils::recurse::recurse(args.url, 3);
-    } else {
-        for e in parsed_html.select(&text_selector) {
-            if e.text().next().is_some() {
-                text_elements.push(structs::Element::Element {
-                    text: e.text().next().unwrap().to_string(),
-                    from_url: args.url.clone(),
-                });
-            }
-        }
+    let mut text_elements: HashMap<String, Vec<String>> = HashMap::new();
+    let mut d: i8 = 1;
+    if args.recursive.is_some() {
+        d = args.recursive.unwrap();
     }
-
-    let re = Regex::new(&args.search.unwrap()).unwrap();
-    for text in text_elements {
-        if re.is_match(&text.text) {
-            utils::prettyprint::prettyprint(text.text);
+    text_elements = utils::recurse::recurse(args.url, d).await;
+    let mut re = Regex::new(".*").unwrap();
+    if args.search.is_some() {
+        re = Regex::new(&args.search.unwrap()).unwrap();
+    }
+    for urls in text_elements.values().collect::<Vec<_>>() {
+        for text in urls {
+            if re.is_match(&text) {
+                utils::prettyprint::prettyprint(text.to_string(), re.clone());
+            }
         }
     }
 }

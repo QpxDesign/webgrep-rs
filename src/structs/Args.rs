@@ -10,6 +10,12 @@ pub struct ArgParser {
     #[arg(short = 's', long = "search")]
     pub search: Option<String>,
 
-    #[arg(short, long, action=ArgAction::SetTrue)]
-    pub recursive: Option<bool>,
+    #[arg(short, long)]
+    pub recursive: Option<i8>,
+
+    #[arg(short = 'o', long = "samehost", action=ArgAction::SetTrue)]
+    pub samehost: Option<bool>,
+
+    #[arg(short = 'p', long = "pathcontains")]
+    pub pathcontains: Option<String>,
 }
