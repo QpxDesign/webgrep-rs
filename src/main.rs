@@ -5,6 +5,7 @@ use regex::Regex;
 use reqwest::Client;
 use scraper::{Html, Selector};
 use std::collections::HashMap;
+use url::Url;
 
 #[path = "./structs/mod.rs"]
 mod structs;
@@ -14,9 +15,13 @@ mod utils;
 #[tokio::main]
 async fn main() {
     let client = Client::new();
-    let text_selector = Selector::parse("p, h1, h2, h3, h4, h5, blockquote, dd, div, dl, dt, figcaption, figure, hr, li, menu, ol, p, pre, ul, a, abbr, b, bdi, bdo, br, cite, code, data, dfn, em, i, kbd, mark, q, rp, rt, ruby, s, samp, small, span, strong, sub, sup, time, u, var, wbr, caption, col, colgroup, table, tbody, td, tfoot, th, thead, tr").unwrap();
+    let text_selector = Selector::parse("p, h1, h2, h3, h4, h5, blockquote, dd, div, dl, dt, figcaption, figure, hr, li, menu, ol, p, pre, ul, a, abbr, b, bdi, bdo, br, cite, code, data, dfn, em, i, kbd, mark, q, rp, rt, ruby, s, samp, small, span, strong, sub, sup, time, u, var, wbr, caption, col, colgroup, table, tbody, td, tfoot, th, thead, tr, noscript").unwrap();
 
     let args: crate::structs::Args::ArgParser = ArgParser::parse();
+    if Url::parse(&args.url).is_err() {
+        panic!("ERROR: '{}' is not a valid URL ", args.url);
+    }
+
     let resp = client
         .get(&args.url)
         .send()

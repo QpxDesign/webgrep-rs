@@ -20,7 +20,7 @@ lazy_static! {
 pub async fn recurse(base_url: String, depth: i8) -> HashMap<String, Vec<String>> {
     #[async_recursion(?Send)]
     async fn get_links(specific_urls: Vec<String>, depth: i8) -> Vec<String> {
-        let text_selector = Selector::parse("p, h1, h2, h3, h4, h5, blockquote, dd, div, dl, dt, figcaption, figure, hr, li, menu, ol, p, pre, ul, a, abbr, b, bdi, bdo, br, cite, code, data, dfn, em, i, kbd, mark, q, rp, rt, ruby, s, samp, small, span, strong, sub, sup, time, u, var, wbr, caption, col, colgroup, table, tbody, td, tfoot, th, thead, tr").unwrap();
+        let text_selector = Selector::parse("p, h1, h2, h3, h4, h5, blockquote, dd, div, dl, dt, figcaption, figure, hr, li, menu, ol, p, pre, ul, a, abbr, b, bdi, bdo, br, cite, code, data, dfn, em, i, kbd, mark, q, rp, rt, ruby, s, samp, small, span, strong, sub, sup, time, u, var, wbr, caption, col, colgroup, table, tbody, td, tfoot, th, thead, tr, noscript").unwrap();
         let args: crate::structs::Args::ArgParser = ArgParser::parse();
         if specific_urls.len() < 1 {
             return Vec::new();

@@ -4,10 +4,10 @@ use clap::Parser;
 #[derive(Parser, Clone)]
 #[command(version, about, long_about = None)]
 pub struct ArgParser {
-    #[arg(short = 'u', long = "url")]
+    #[arg(index = 1)]
     pub url: String,
 
-    #[arg(short = 's', long = "search")]
+    #[arg(index = 2)]
     pub search: Option<String>,
 
     #[arg(short, long)]
