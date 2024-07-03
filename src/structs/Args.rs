@@ -18,4 +18,7 @@ pub struct ArgParser {
 
     #[arg(short = 'p', long = "pathcontains")]
     pub pathcontains: Option<String>,
+
+    #[arg(short = 'c', long = "chrome", action=ArgAction::SetTrue)]
+    pub use_chrome: Option<bool>,
 }
