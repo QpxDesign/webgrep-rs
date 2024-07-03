@@ -14,9 +14,11 @@ to use headless-chrome with webgrep, either use the `-c/--chrome` flag, or set t
 - `-c/--chrome` OPTIONAL, use chrome instead of just basic http request (needed for sites with js)
 ### Examples:
 recursively search through a college course catalog for a keyword (case insensitive):
+
 `webgrep https://https://oxy.smartcatalogiq.com/en/2021-2022/catalog/course-descriptions/ "(?i)ethical" --samehost -p course-descriptions`
 
 read a react.js webpage using headless chrome:
+
 `webgrep https://quinnpatwardhan.com/aboutme frisb -c` (or, with env variable set): `webgrep https://quinnpatwardhan.com/aboutme frisb`
 
 ### bugs/contributing

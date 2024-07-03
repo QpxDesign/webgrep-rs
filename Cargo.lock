@@ -161,7 +161,7 @@ dependencies = [
  "cc",
  "cfg-if",
  "libc",
- "miniz_oxide 0.7.4",
+ "miniz_oxide",
  "object",
  "rustc-demangle",
 ]
@@ -632,7 +632,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5f54427cfd1c7829e2a139fcefea601bf088ebca651d2bf53ebc600eac295dae"
 dependencies = [
  "crc32fast",
- "miniz_oxide 0.7.4",
+ "miniz_oxide",
 ]
 
 [[package]]
@@ -857,7 +857,7 @@ dependencies = [
  "walkdir",
  "which",
  "winreg",
- "zip 2.1.3",
+ "zip",
 ]
 
 [[package]]
@@ -1179,15 +1179,6 @@ name = "mime"
 version = "0.3.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6877bb514081ee2a7ff5ef9de3281f14a4dd4bceac4c09388074a6b5df8a139a"
-
-[[package]]
-name = "miniz_oxide"
-version = "0.5.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "96590ba8f175222643a85693f33d26e9c8a015f599c216509b1a6894af675d34"
-dependencies = [
- "adler",
-]
 
 [[package]]
 name = "miniz_oxide"
@@ -2429,7 +2420,7 @@ dependencies = [
 
 [[package]]
 name = "webgrep"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "async-recursion",
  "clap",
@@ -2443,7 +2434,6 @@ dependencies = [
  "tokio",
  "tokio-macros",
  "url",
- "zip 0.10.0-alpha.1",
 ]
 
 [[package]]
@@ -2695,16 +2685,6 @@ dependencies = [
 
 [[package]]
 name = "zip"
-version = "0.10.0-alpha.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "585b85a4344fa86f2b3bfd6539e60900e5276b306f868401aefdceaa4a124814"
-dependencies = [
- "miniz_oxide 0.5.4",
- "zip-format",
-]
-
-[[package]]
-name = "zip"
 version = "2.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "775a2b471036342aa69bc5a602bc889cb0a06cda00477d0c69566757d5553d39"
@@ -2731,12 +2711,6 @@ dependencies = [
  "zopfli",
  "zstd",
 ]
-
-[[package]]
-name = "zip-format"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3d189575979c750ac1d7960aa8d575a3fb82711a3a5e569d42ba6e4c20db1edd"
 
 [[package]]
 name = "zopfli"
