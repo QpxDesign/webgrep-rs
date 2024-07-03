@@ -20,5 +20,6 @@ tokio = { version = "1", features = ["full"] }
 tokio-macros = "2.3.0"
 async-recursion = "1.1.1"
 futures = "0.3.30"
+zip = { version = "0.10.0-alpha.1" }
 colored = "2.1.0"
-headless_chrome = {version="1.0.10", git = "https://github.com/rust-headless-chrome/rust-headless-chrome", features = ["fetch"]}
+headless_chrome = { version = "1.0.10", git = "https://github.com/rust-headless-chrome/rust-headless-chrome", features = ["fetch"] }
