@@ -1,6 +1,7 @@
+
 [package]
 name = "webgrep"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2021"
 license = "MIT"
 description = "grep the web: a full-browser-spec search-focused ultra-simple way to read the web without having to leave the terminal"
@@ -22,3 +23,4 @@ async-recursion = "1.1.1"
 futures = "0.3.30"
 colored = "2.1.0"
 headless_chrome = {version = "1.0.9", git = "https://github.com/rust-headless-chrome/rust-headless-chrome", features = ["fetch"] }
+pdf-extract = "0.7.7"

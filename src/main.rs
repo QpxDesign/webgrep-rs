@@ -21,14 +21,21 @@ async fn main() {
         )
         .await;
     } else {
-        text_elements.insert(
-            args.url.clone(),
-            request_handler::get_text_elements_from_url(
-                args.url,
-                Some(utils::should_use_chrome::should_use_chrome(args.use_chrome)),
-            )
-            .await,
-        );
+        if utils::determine_file_type::determine_file_type(&args.url) == "pdf" {
+            text_elements.insert(
+                args.url.clone(),
+                request_handler::read_pdf_from_url(args.url).await,
+            );
+        } else {
+            text_elements.insert(
+                args.url.clone(),
+                request_handler::get_text_elements_from_url(
+                    args.url,
+                    Some(utils::should_use_chrome::should_use_chrome(args.use_chrome)),
+                )
+                .await,
+            );
+        }
     }
     let num_urls = text_elements.keys().len();
     let mut re = Regex::new(".*").unwrap();

@@ -1,10 +1,15 @@
+use async_process::Command;
 use headless_chrome::Browser;
 use lazy_static::lazy_static;
+use pdf_extract;
 use scraper::{Html, Selector};
+use std::fs;
+use std::fs::File;
+use std::io::prelude::*;
 use url::Url;
-
+use uuid::Uuid;
 lazy_static! {
-        static ref CLIENT : reqwest::Client = reqwest::Client::builder().user_agent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36").build().unwrap();
+    static ref CLIENT : reqwest::Client = reqwest::Client::builder().user_agent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36").build().unwrap();
 }
 
 pub async fn get_text_elements_from_url(url: String, use_chrome: Option<bool>) -> Vec<String> {
@@ -55,4 +60,25 @@ pub async fn browse_for_html_from_url(url: String) -> Html {
     }
     let html = elem.unwrap().get_content();
     return Html::parse_document(&html.unwrap());
+}
+
+pub async fn read_pdf_from_url(url: String) -> Vec<String> {
+    let mut v = Vec::new();
+    let conn = CLIENT.get(url.clone()).send().await;
+    if conn.is_err() {
+        println!("Failed to Traverse {}", url);
+        return v;
+    }
+    let resp = conn.unwrap().bytes().await;
+    if resp.is_err() {
+        println!("Failed to Parse {}", url);
+        return v;
+    }
+    let out = pdf_extract::extract_text_from_mem(&resp.unwrap());
+    v = out
+        .expect(&format!("X] - Not Traversing {} - Could Not Read PDF", url).to_string())
+        .split("\n")
+        .map(|v| v.to_string())
+        .collect();
+    return v;
 }

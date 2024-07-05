@@ -11,7 +11,6 @@ use reqwest::Client;
 use std::collections::HashMap;
 use std::sync::Mutex;
 use tokio::time::{sleep, Duration}; // TODO: IMPLEMENT
-
 lazy_static! {
     // key: href
     // value: html
@@ -67,11 +66,22 @@ pub async fn recurse(
                         href = parsed_url.join(&href).unwrap().as_str().to_string();
                     }
                     if !CACHE.lock().unwrap().contains_key(&href) && !Url::parse(&href).is_err() {
-                        CACHE.lock().unwrap().insert(
-                            href.clone(),
-                            request_handler::get_text_elements_from_url(href.clone(), use_chrome)
+                        let mut file_type = "html";
+                        if crate::utils::determine_file_type::determine_file_type(&href) == "pdf" {
+                            CACHE.lock().unwrap().insert(
+                                href.clone(),
+                                request_handler::read_pdf_from_url(href.clone()).await,
+                            )
+                        } else {
+                            CACHE.lock().unwrap().insert(
+                                href.clone(),
+                                request_handler::get_text_elements_from_url(
+                                    href.clone(),
+                                    use_chrome,
+                                )
                                 .await,
-                        );
+                            )
+                        };
                         links.push(href.clone());
                         println!("{}", "Traversed ".to_owned() + &href.to_owned());
                     }

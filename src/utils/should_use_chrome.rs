@@ -14,7 +14,6 @@ pub fn should_use_chrome(chrome_arg_value: Option<bool>) -> bool {
             }
         }
         Err(e) => {
-            println!("{}", e);
             return false;
         }
     }
