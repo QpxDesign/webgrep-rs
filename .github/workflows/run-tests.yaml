@@ -1,0 +1,20 @@
+name: Build & Run Tests
+run-name: Build & Test Project Across 10+ Test Cases 🚀
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Build project
+        run: cargo build -r --verbose
+
+      - name: Install Test Runner
+        run: cargo install qbtt
+
+      - name: Run Tests
+        id: run_tests
+        run: cd tests && cargo run

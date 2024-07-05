@@ -1,0 +1,59 @@
+[[test_cases]]
+name = "HttpRequest/Basic"
+run_type = "output"
+cmd = "../target/release/webgrep https://quinnpatwardhan.com"
+expect = "JavaScript"
+
+[[test_cases]]
+name = "HttpRequest/html"
+run_type = "output"
+cmd = "../target/release/webgrep https://trec.nist.gov/faq.html"
+expect = "DARPA"
+
+[[test_cases]]
+name = "HttpRequest/Recursive1-FoundLink"
+run_type = "output"
+cmd = "../target/release/webgrep https://trec.nist.gov/overview.html -r 1"
+expect = "Traversed http://www.nist.gov/privacy-policy"
+
+[[test_cases]]
+name = "HttpRequest/Recursive1-ExploredLink"
+run_type = "output"
+cmd = "../target/release/webgrep https://trec.nist.gov/overview.html -r 1"
+expect = "Cookies"
+
+[[test_cases]]
+name = "HttpRequest/Recursive1-PathContains"
+run_type = "checksum"
+cmd = "../target/release/webgrep http://infolab.stanford.edu/pub/voy/museum.html shsadu --pathcontains people -r 1"
+expect = "05a09747b2f15d953cccb061cd39c971"
+
+[[test_cases]]
+name = "HttpRequest/Recursive1-SameHost"
+run_type = "output"
+cmd = "../target/release/webgrep https://exhibits.stanford.edu/cs/about/timeline sdhb -r 1 --samehost"
+expect = "Not Traversing policies.google.com due to samehost being true"
+
+[[test_cases]]
+name = "ChromeRequest/Basic"
+run_type = "output"
+cmd = "../target/release/webgrep https://quinnpatwardhan.com/aboutme -c"
+expect = "New York Times"
+
+[[test_cases]]
+name = "ChromeRequest/Recursive"
+run_type = "output"
+cmd = "../target/release/webgrep https://quinnpatwardhan.com/aboutme -c -r 1 --samehost"
+expect = "https://quinnpatwardhan.com/contact:"
+
+[[test_cases]]
+name = "PDF/NoRecursive"
+run_type = "output"
+cmd = "../target/release/webgrep https://quinnpatwardhan.com/Assets/Resume.pdf"
+expect = "InfoSense"
+
+[[test_cases]]
+name = "Search/Basic"
+run_type = "output"
+cmd = "../target/release/webgrep https://quinnpatwardhan.com/aboutme Ravens -c"
+expect = "die-hard"

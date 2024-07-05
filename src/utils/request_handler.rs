@@ -8,7 +8,7 @@ lazy_static! {
 }
 
 pub async fn get_text_elements_from_url(url: String, use_chrome: Option<bool>) -> Vec<String> {
-    let text_selector = Selector::parse("p, h1, h2, h3, h4, h5, blockquote, dd, div, dl, dt, figcaption, figure, hr, li, menu, ol, p, pre, ul, a, abbr, b, bdi, bdo, br, cite, code, data, dfn, em, i, kbd, mark, q, rp, rt, ruby, s, samp, small, span, strong, sub, sup, time, u, var, wbr, caption, col, colgroup, table, tbody, td, tfoot, th, thead, tr, noscript").unwrap();
+    let text_selector = Selector::parse("p, h1, h2, h3, h4, h5, blockquote, dd, div, dl, dt, figcaption, figure, hr, li, menu, ol, p, pre, ul, a, abbr, b, bdi, bdo, br, cite, code, data, dfn, em, i, kbd, mark, q, rp, rt, ruby, s, samp, small, span, strong, sub, sup, time, u, var, wbr, caption, col, colgroup, table, tbody, td, tfoot, th, thead, tr, noscript, font").unwrap();
     let mut parsed_html = Html::new_document();
     if use_chrome.is_some() && use_chrome.unwrap() {
         parsed_html = browse_for_html_from_url(url.clone()).await;
