@@ -17,4 +17,4 @@ jobs:
 
       - name: Run Tests
         id: run_tests
-        run: cd tests && cargo run
+        run: cd tests && qbtt test_cases.toml
