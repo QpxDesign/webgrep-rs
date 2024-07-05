@@ -1,13 +1,8 @@
-use async_process::Command;
 use headless_chrome::Browser;
 use lazy_static::lazy_static;
 use pdf_extract;
 use scraper::{Html, Selector};
-use std::fs;
-use std::fs::File;
-use std::io::prelude::*;
 use url::Url;
-use uuid::Uuid;
 lazy_static! {
     static ref CLIENT : reqwest::Client = reqwest::Client::builder().user_agent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36").build().unwrap();
 }
