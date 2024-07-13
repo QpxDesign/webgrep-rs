@@ -43,8 +43,10 @@ async fn main() {
         re = Regex::new(&args.search.unwrap()).unwrap();
     }
     for (link, texts) in text_elements.into_iter() {
+        let mut printed_texts: HashMap<String, bool> = HashMap::new();
         for text in texts {
-            if re.is_match(&text) {
+            if re.is_match(&text) && !printed_texts.contains_key(&text) {
+                printed_texts.insert(text.to_string(), true);
                 if num_urls > 1 {
                     print!("{}", link.blue());
                     print!("{}", ":".green());
