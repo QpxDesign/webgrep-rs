@@ -13,6 +13,9 @@ pub struct ArgParser {
     #[arg(short, long)]
     pub recursive: Option<i8>,
 
+    #[arg(short, long, action=ArgAction::SetTrue)]
+    pub insensitive: Option<bool>,
+
     #[arg(short = 'o', long = "samehost", action=ArgAction::SetTrue)]
     pub samehost: Option<bool>,
 

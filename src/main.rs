@@ -40,7 +40,11 @@ async fn main() {
     let num_urls = text_elements.keys().len();
     let mut re = Regex::new(".*").unwrap();
     if args.search.is_some() {
-        re = Regex::new(&args.search.unwrap()).unwrap();
+        if args.insensitive.is_some() && args.insensitive.unwrap() == true {
+            re = Regex::new(&("(?i)".to_owned() + &args.search.unwrap())).unwrap();
+        } else {
+            re = Regex::new(&args.search.unwrap()).unwrap();
+        }
     }
     for (link, texts) in text_elements.into_iter() {
         let mut printed_texts: HashMap<String, bool> = HashMap::new();

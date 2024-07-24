@@ -57,3 +57,9 @@ name = "Search/Basic"
 run_type = "output"
 cmd = "../target/release/webgrep https://quinnpatwardhan.com/aboutme Ravens -c"
 expect = "die-hard"
+
+[[test_cases]]
+name = "Search/Insensitive"
+run_type = "lines_count"
+cmd = "../target/release/webgrep https://google.com dark -i"
+expect = "3"
