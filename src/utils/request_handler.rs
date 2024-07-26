@@ -1,4 +1,4 @@
-use headless_chrome::Browser;
+use headless_chrome::{Browser, LaunchOptions};
 use lazy_static::lazy_static;
 use pdf_extract;
 use scraper::{Html, Selector};
@@ -41,8 +41,12 @@ pub async fn get_html_from_url(url: &str) -> Html {
     return Html::parse_document(&resp.unwrap());
 }
 pub async fn browse_for_html_from_url(url: String) -> Html {
+    let options = LaunchOptions::default_builder()
+        .headless(true)
+        .build()
+        .unwrap();
     let browser =
-        Browser::default().expect("Failed to create broswer (try running without --chrome)");
+        Browser::new(options).expect("Failed to create broswer (try running without --chrome)");
 
     let tab = browser
         .new_tab()
