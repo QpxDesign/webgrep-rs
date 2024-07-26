@@ -67,5 +67,5 @@ expect = "3"
 [[test_cases]]
 name = "Recursive/BreakWhenFound"
 run_type = "lines_count"
-cmd = "../target/debug/webgrep https://quinnpatwardhan.com/ frisb -r 1 -b -c"
+cmd = "../target/release/webgrep https://quinnpatwardhan.com/ frisb -r 1 -b -c"
 expect = "5"
