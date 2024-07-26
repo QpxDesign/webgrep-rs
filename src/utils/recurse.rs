@@ -81,7 +81,7 @@ pub async fn recurse(
                         for t in CACHE.lock().unwrap().values_mut() {
                             for a in t {
                                 if re.is_match(a) {
-                                    return get_links(links, depth - 1, use_chrome).await;
+                                    return get_links(links, 0, use_chrome).await;
                                 }
                             }
                         }
