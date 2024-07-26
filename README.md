@@ -13,6 +13,7 @@ to use headless-chrome with webgrep, either use the `-c/--chrome` flag, or set t
 - `-o/--samehost` OPTIONAL, only explore webpages on the same host (ie same domain)
 - `-c/--chrome` OPTIONAL, use chrome instead of just basic http request (needed for sites with js)
 - `-i/--insensitive` OPTIONAL, search case-insensitivly
+- `-b/--break_when_found` OPTIONAL, stop recursion when search nets result
 
 ### Examples:
 recursively search through a college course catalog for a keyword (case insensitive):

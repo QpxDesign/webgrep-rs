@@ -7,6 +7,7 @@ use crate::utils::request_handler;
 use async_recursion::async_recursion;
 use clap::Parser;
 use lazy_static::lazy_static;
+use regex::Regex;
 use reqwest::Client;
 use std::collections::HashMap;
 use std::sync::Mutex;
@@ -47,7 +48,7 @@ pub async fn recurse(
             let link_selector = Selector::parse("a").unwrap();
             let mut phtml = Html::new_document();
             if use_chrome.is_some() && use_chrome.unwrap() {
-                phtml = request_handler::browse_for_html_from_url(specific_url).await;
+                phtml = request_handler::browse_for_html_from_url(specific_url.clone()).await;
             } else {
                 phtml = request_handler::get_html_from_url(&specific_url).await;
             }
@@ -64,6 +65,26 @@ pub async fn recurse(
 
                     if Url::parse(&href) == Err(url::ParseError::RelativeUrlWithoutBase) {
                         href = parsed_url.join(&href).unwrap().as_str().to_string();
+                    }
+                    if args.break_when_found.is_some() && args.break_when_found.unwrap() {
+                        let mut re = Regex::new("").unwrap();
+                        if args.search.clone().is_some() {
+                            if args.insensitive.is_some() && args.insensitive.unwrap() == true {
+                                re = Regex::new(
+                                    &("(?i)".to_owned() + &args.search.clone().unwrap()),
+                                )
+                                .unwrap();
+                            } else {
+                                re = Regex::new(&args.search.clone().unwrap()).unwrap();
+                            }
+                        }
+                        for t in CACHE.lock().unwrap().values_mut() {
+                            for a in t {
+                                if re.is_match(a) {
+                                    return get_links(links, depth - 1, use_chrome).await;
+                                }
+                            }
+                        }
                     }
                     if !CACHE.lock().unwrap().contains_key(&href) && !Url::parse(&href).is_err() {
                         let mut file_type = "html";

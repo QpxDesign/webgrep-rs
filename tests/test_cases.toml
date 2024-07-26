@@ -63,3 +63,9 @@ name = "Search/Insensitive"
 run_type = "lines_count"
 cmd = "../target/release/webgrep https://google.com dark -i"
 expect = "3"
+
+[[test_cases]]
+name = "Recursive/BreakWhenFound"
+run_type = "lines_count"
+cmd = "../target/debug/webgrep https://quinnpatwardhan.com/ frisb -r 1 -b -c"
+expect = "5"

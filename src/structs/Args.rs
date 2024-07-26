@@ -24,4 +24,7 @@ pub struct ArgParser {
 
     #[arg(short = 'c', long = "chrome", action=ArgAction::SetTrue)]
     pub use_chrome: Option<bool>,
+
+    #[arg(short, long, action=ArgAction::SetTrue)]
+    pub break_when_found: Option<bool>,
 }
