@@ -2,6 +2,7 @@ use headless_chrome::{Browser, LaunchOptions};
 use lazy_static::lazy_static;
 use pdf_extract;
 use scraper::{Html, Selector};
+use std::path::PathBuf;
 use url::Url;
 lazy_static! {
     static ref CLIENT : reqwest::Client = reqwest::Client::builder().user_agent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36").build().unwrap();
@@ -41,13 +42,14 @@ pub async fn get_html_from_url(url: &str) -> Html {
     return Html::parse_document(&resp.unwrap());
 }
 pub async fn browse_for_html_from_url(url: String) -> Html {
+    let mut path = PathBuf::new();
+    path.push("~/.cargo");
     let options = LaunchOptions::default_builder()
         .headless(true)
         .build()
         .unwrap();
     let browser =
         Browser::new(options).expect("Failed to create broswer (try running without --chrome)");
-
     let tab = browser
         .new_tab()
         .expect("Failed to create broswer tab (try running without --chrome)");
